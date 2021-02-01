@@ -52,7 +52,7 @@ namespace Blurr.SQL
         /// <summary>
         /// Connect to the database
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Returns true if successful</returns>
         public bool Connect()
         {
             if (Connection == null)
