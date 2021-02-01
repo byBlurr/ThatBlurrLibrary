@@ -23,7 +23,7 @@ namespace UnitTest
         }
 
         /// <summary>
-        ///  Test selecting all rows using DBConnect with 'SELECT * FROM' command
+        ///  Test that the database connection works and we are able to select from a table
         /// </summary>
         [TestMethod]
         public void SelectTest()
