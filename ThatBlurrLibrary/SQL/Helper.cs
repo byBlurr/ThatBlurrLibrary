@@ -1,5 +1,6 @@
 ﻿using MySql.Data.MySqlClient;
 using System;
+using System.Collections.Generic;
 
 namespace Blurr.SQL
 {
@@ -87,6 +88,46 @@ namespace Blurr.SQL
             {
                 throw ex;
             }
+        }
+
+        public static List<T> SelectData<T>(DBConnection dbInstance, string tableName, string[] columns, string where = null)
+        {
+            if (dbInstance == null) throw new Exception("Database connection instance is null.");
+            if (String.IsNullOrEmpty(tableName)) throw new Exception("No table name was provided.");
+
+            string columnsToSelect;
+            if (columns.Length <= 0) columnsToSelect = "*";
+            else columnsToSelect = String.Join(", ", columns);
+            string sqlCommand = where == null ? $"SELECT {columnsToSelect} FROM {tableName}" : $"SELECT {columnsToSelect} FROM {tableName} WHERE {where}";
+
+            List<T> rows = new List<T>();
+
+            try
+            {
+                if (dbInstance.Connect())
+                {
+                    MySqlCommand command = new MySqlCommand(sqlCommand, dbInstance.Connection);
+                    var reader = command.ExecuteReader();
+
+                    if (reader.HasRows)
+                    {
+                        // TODO: need a way to turn a row into an object of T
+                    }
+
+                    reader.Close();
+                    command.Dispose();
+                    dbInstance.Close();
+                }
+                else
+                {
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            return rows;
         }
     }
 }
