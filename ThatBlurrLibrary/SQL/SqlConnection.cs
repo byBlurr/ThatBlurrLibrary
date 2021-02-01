@@ -3,10 +3,10 @@ using System;
 
 namespace Blurr.Sql
 {
-    public class DBConnection
+    public class SqlConnection
     {
         /// <summary> We don't want people to make instances of this class... </summary>
-        private DBConnection(){}
+        private SqlConnection(){}
 
         /// Database information for connection string
         private string databaseUser = string.Empty;
@@ -42,10 +42,10 @@ namespace Blurr.Sql
         }
 
         /// Get an instance of DBConnection
-        private static DBConnection _instance = null;
-        public static DBConnection Instance()
+        private static SqlConnection _instance = null;
+        public static SqlConnection Instance()
         {
-            _instance = new DBConnection();
+            _instance = new SqlConnection();
             return _instance;
         }
 

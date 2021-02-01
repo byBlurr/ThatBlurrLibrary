@@ -18,7 +18,7 @@ namespace UnitTest
         [TestMethod]
         public void DatabaseConnectionTest()
         {
-            DBConnection dbCon = DBConnection.Instance();
+            SqlConnection dbCon = SqlConnection.Instance();
             dbCon.DatabaseName = "blurr";
             Assert.IsTrue(dbCon.Connect());
         }
@@ -29,7 +29,7 @@ namespace UnitTest
         [TestMethod]
         public void SelectTest()
         {
-            DBConnection dbCon = DBConnection.Instance();
+            SqlConnection dbCon = SqlConnection.Instance();
             dbCon.DatabaseName = "blurr";
             Assert.IsTrue(dbCon.Connect());
             var cmd = new MySqlCommand($"SELECT * FROM test", dbCon.Connection);
@@ -60,7 +60,7 @@ namespace UnitTest
             string[] columns = { "id", "name" };
             object[] values = { 0, "Steve" };
 
-            DBConnection dbCon = DBConnection.Instance();
+            SqlConnection dbCon = SqlConnection.Instance();
             dbCon.DatabaseName = "blurr";
             try
             {
@@ -82,7 +82,7 @@ namespace UnitTest
             object[] values = { "Bob", "Bryant" };
             string where = "id = '2'";
 
-            DBConnection dbCon = DBConnection.Instance();
+            SqlConnection dbCon = SqlConnection.Instance();
             dbCon.DatabaseName = "blurr";
             try
             {
@@ -102,7 +102,7 @@ namespace UnitTest
         {
             string[] columns = { "first_name", "last_name" };
 
-            DBConnection dbCon = DBConnection.Instance();
+            SqlConnection dbCon = SqlConnection.Instance();
             dbCon.DatabaseName = "blurr";
             try
             {
