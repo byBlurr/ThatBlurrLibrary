@@ -71,6 +71,9 @@ namespace UnitTest
             }
         }
 
+        /// <summary>
+        /// Test UPDATE helper method
+        /// </summary>
         [TestMethod]
         public void UpdateTest()
         {
