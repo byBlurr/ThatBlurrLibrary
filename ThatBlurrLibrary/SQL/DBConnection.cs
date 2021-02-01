@@ -1,7 +1,7 @@
 ﻿using MySql.Data.MySqlClient;
 using System;
 
-namespace Blurr.SQL
+namespace Blurr.Sql
 {
     public class DBConnection
     {

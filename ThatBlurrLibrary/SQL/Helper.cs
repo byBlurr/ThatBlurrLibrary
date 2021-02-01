@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Reflection;
 
-namespace Blurr.SQL
+namespace Blurr.Sql
 {
     /// <summary>
     /// Helper methods for commands that are often used, more complex commands will still have to be done manually
