@@ -2,6 +2,7 @@ using Blurr.SQL;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MySql.Data.MySqlClient;
 using System;
+using System.Collections.Generic;
 
 namespace UnitTest
 {
@@ -91,6 +92,41 @@ namespace UnitTest
             {
                 Assert.Fail(ex.Message);
             }
+        }
+
+        /// <summary>
+        /// Test SELECT helper method
+        /// </summary>
+        [TestMethod]
+        public void SelectDataTest()
+        {
+            string[] columns = { "first_name", "last_name" };
+
+            DBConnection dbCon = DBConnection.Instance();
+            dbCon.DatabaseName = "blurr";
+            try
+            {
+                List<Person> data = Helper.SelectData<Person>(dbCon, "update_test", columns);
+                Assert.IsNotNull(data[0]);
+                Assert.IsNotNull(data[0].first_name);
+                Console.WriteLine(data[0].first_name);
+                Assert.AreEqual(2, data.Count);
+            }
+            catch (Exception ex)
+            {
+                Assert.Fail(ex.Message);
+            }
+        }
+    }
+
+    public class Person
+    {
+        public string first_name { get; private set; }
+        public string last_name { get; private set; }
+
+        public override string ToString()
+        {
+            return $"Name: {first_name} {last_name}";
         }
     }
 }
