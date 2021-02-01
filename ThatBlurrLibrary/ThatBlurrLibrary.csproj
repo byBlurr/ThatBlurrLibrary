@@ -6,7 +6,10 @@
 
   <ItemGroup>
     <Folder Include="Encryption\" />
-    <Folder Include="SQL\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MySql.Data" Version="8.0.23" />
   </ItemGroup>
 
 </Project>
