@@ -5,11 +5,10 @@ namespace Blurr.SQL
 {
     public class DBConnection
     {
-        private DBConnection()
-        {
+        /// <summary> We don't want people to make instances of this class... </summary>
+        private DBConnection(){}
 
-        }
-
+        /// Database information for connection string
         private string databaseUser = string.Empty;
         private string databaseIp = string.Empty;
         private string databaseName = string.Empty;
@@ -35,12 +34,14 @@ namespace Blurr.SQL
             set { databasePassword = value; }
         }
 
+        /// Our MySql connection
         private MySqlConnection connection = null;
         public MySqlConnection Connection
         {
             get { return connection; }
         }
 
+        /// Get an instance of DBConnection
         private static DBConnection _instance = null;
         public static DBConnection Instance()
         {
@@ -48,6 +49,10 @@ namespace Blurr.SQL
             return _instance;
         }
 
+        /// <summary>
+        /// Connect to the database
+        /// </summary>
+        /// <returns></returns>
         public bool Connect()
         {
             if (Connection == null)
@@ -77,9 +82,14 @@ namespace Blurr.SQL
 
         }
 
+        /// Close the database connection
         public void Close()
         {
-            if (Connection != null) connection.Close();
+            if (connection != null)
+            {
+                connection.Close();
+                connection = null;
+            }
         }
     }
 }

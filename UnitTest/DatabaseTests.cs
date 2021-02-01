@@ -5,6 +5,9 @@ using System;
 
 namespace UnitTest
 {
+    /// <summary>
+    /// UnitTests for database methods
+    /// </summary>
     [TestClass]
     public class DatabaseTests
     {
