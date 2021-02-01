@@ -40,7 +40,7 @@ namespace Blurr.SQL
                 }
                 else
                 {
-                    return false;
+                    throw new Exception("Could not connect to database.");
                 }
             }
             catch (Exception ex)
@@ -86,7 +86,7 @@ namespace Blurr.SQL
                 }
                 else
                 {
-                    return false;
+                    throw new Exception("Could not connect to database.");
                 }
             }
             catch (Exception ex)
