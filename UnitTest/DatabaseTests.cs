@@ -49,6 +49,46 @@ namespace UnitTest
 
             Assert.AreEqual(3, rows);
         }
+
+        /// <summary>
+        /// Test INSERT INTO helper method
+        /// </summary>
+        [TestMethod]
+        public void InsertIntoTest()
+        {
+            string[] columns = { "id", "name" };
+            object[] values = { 0, "Steve" };
+
+            DBConnection dbCon = DBConnection.Instance();
+            dbCon.DatabaseName = "blurr";
+            try
+            {
+                Assert.IsTrue(Helper.InsertIntoTable(dbCon, "insert_test", columns, values));
+            }
+            catch (Exception ex)
+            {
+                Assert.Fail(ex.Message);
+            }
+        }
+
+        [TestMethod]
+        public void UpdateTest()
+        {
+            string[] columns = { "first_name", "last_name" };
+            object[] values = { "Bob", "Bryant" };
+            string where = "id = '2'";
+
+            DBConnection dbCon = DBConnection.Instance();
+            dbCon.DatabaseName = "blurr";
+            try
+            {
+                Assert.IsTrue(Helper.UpdateTable(dbCon, "update_test", columns, values, where));
+            }
+            catch (Exception ex)
+            {
+                Assert.Fail(ex.Message);
+            }
+        }
     }
 }
 
