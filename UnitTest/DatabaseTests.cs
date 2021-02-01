@@ -64,7 +64,7 @@ namespace UnitTest
             dbCon.DatabaseName = "blurr";
             try
             {
-                Assert.IsTrue(Helper.InsertIntoTable(dbCon, "insert_test", columns, values));
+                Assert.IsTrue(SqlHelper.InsertIntoTable(dbCon, "insert_test", columns, values));
             }
             catch (Exception ex)
             {
@@ -86,7 +86,7 @@ namespace UnitTest
             dbCon.DatabaseName = "blurr";
             try
             {
-                Assert.IsTrue(Helper.UpdateTable(dbCon, "update_test", columns, values, where));
+                Assert.IsTrue(SqlHelper.UpdateTable(dbCon, "update_test", columns, values, where));
             }
             catch (Exception ex)
             {
@@ -106,7 +106,7 @@ namespace UnitTest
             dbCon.DatabaseName = "blurr";
             try
             {
-                List<Person> data = Helper.SelectDataFromTable<Person>(dbCon, "update_test", columns);
+                List<Person> data = SqlHelper.SelectDataFromTable<Person>(dbCon, "update_test", columns);
                 Assert.IsNotNull(data[0]);
                 Assert.IsNotNull(data[0].first_name);
                 Console.WriteLine(data[0].first_name);
