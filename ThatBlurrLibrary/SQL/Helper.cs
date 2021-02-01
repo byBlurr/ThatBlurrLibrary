@@ -1,6 +1,8 @@
 ﻿using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Reflection;
 
 namespace Blurr.SQL
 {
@@ -119,20 +121,18 @@ namespace Blurr.SQL
                 if (dbInstance.Connect())
                 {
                     MySqlCommand command = new MySqlCommand(sqlCommand, dbInstance.Connection);
-                    var reader = command.ExecuteReader();
+                    MySqlDataAdapter adapter = new MySqlDataAdapter(command);
+                    DataSet dataset = new DataSet();
 
-                    if (reader.HasRows)
-                    {
-                        // TODO: need a way to turn a row into an object of T
-                        //      use FOR JSON to return rows as json and then deserialize object?
-                    }
+                    adapter.Fill(dataset);
+                    rows = ConvertDataTable<T>(dataset.Tables[0]);
 
-                    reader.Close();
                     command.Dispose();
                     dbInstance.Close();
                 }
                 else
                 {
+                    throw new Exception("Could not connect to database.");
                 }
             }
             catch (Exception ex)
@@ -141,6 +141,47 @@ namespace Blurr.SQL
             }
 
             return rows;
+        }
+
+        /// <summary>
+        /// Convert data table to a list of objects of type T
+        /// </summary>
+        /// <typeparam name="T">Type of object to return</typeparam>
+        /// <param name="dt">Table to convert</param>
+        /// <returns>Returns List of T</returns>
+        private static List<T> ConvertDataTable<T>(DataTable dt)
+        {
+            List<T> data = new List<T>();
+            foreach (DataRow row in dt.Rows)
+            {
+                T item = GetItem<T>(row);
+                data.Add(item);
+            }
+            return data;
+        }
+
+        /// <summary>
+        /// Get datarow item
+        /// </summary>
+        /// <typeparam name="T">Class Type of the object to return.</typeparam>
+        /// <param name="dr">Datarow to convert to object of T</param>
+        /// <returns>Object of T</returns>
+        private static T GetItem<T>(DataRow dr)
+        {
+            Type temp = typeof(T);
+            T obj = Activator.CreateInstance<T>();
+
+            foreach (DataColumn column in dr.Table.Columns)
+            {
+                foreach (PropertyInfo pro in temp.GetProperties())
+                {
+                    if (pro.Name == column.ColumnName)
+                        pro.SetValue(obj, dr[column.ColumnName], null);
+                    else
+                        continue;
+                }
+            }
+            return obj;
         }
     }
 }
