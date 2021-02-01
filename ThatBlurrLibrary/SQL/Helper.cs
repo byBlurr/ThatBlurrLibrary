@@ -104,7 +104,7 @@ namespace Blurr.SQL
         /// <param name="columns">The columns that are being updated.</param>
         /// <param name="where">The where claus (e.g "id = '1'")</param>
         /// <returns>Returns a list of rows as objects of type T</returns>
-        public static List<T> SelectData<T>(DBConnection dbInstance, string tableName, string[] columns, string where = null)
+        public static List<T> SelectDataFromTable<T>(DBConnection dbInstance, string tableName, string[] columns, string where = null)
         {
             if (dbInstance == null) throw new Exception("Database connection instance is null.");
             if (String.IsNullOrEmpty(tableName)) throw new Exception("No table name was provided.");

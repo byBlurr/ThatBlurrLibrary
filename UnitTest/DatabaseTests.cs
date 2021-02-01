@@ -106,7 +106,7 @@ namespace UnitTest
             dbCon.DatabaseName = "blurr";
             try
             {
-                List<Person> data = Helper.SelectData<Person>(dbCon, "update_test", columns);
+                List<Person> data = Helper.SelectDataFromTable<Person>(dbCon, "update_test", columns);
                 Assert.IsNotNull(data[0]);
                 Assert.IsNotNull(data[0].first_name);
                 Console.WriteLine(data[0].first_name);
