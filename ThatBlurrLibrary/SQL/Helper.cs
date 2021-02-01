@@ -17,8 +17,8 @@ namespace Blurr.SQL
         {
             if (dbInstance == null) throw new Exception("Database connection instance is null.");
             if (String.IsNullOrEmpty(tableName)) throw new Exception("No table name was provided.");
-            if (columns.Length > 0) throw new Exception("You must provide which columns to insert into.");
-            if (columns.Length == values.Length) throw new Exception("Columns length is not equal to values length.");
+            if (columns.Length == 0) throw new Exception("You must provide which columns to insert into.");
+            if (columns.Length != values.Length) throw new Exception("Columns length is not equal to values length.");
 
             string sqlCommand = $"INSERT INTO {tableName} ({String.Join(", ", columns)}) VALUES ('{String.Join("', '", values)}')";
 
@@ -56,8 +56,8 @@ namespace Blurr.SQL
         {
             if (dbInstance == null) throw new Exception("Database connection instance is null.");
             if (String.IsNullOrEmpty(tableName)) throw new Exception("No table name was provided.");
-            if (columns.Length > 0) throw new Exception("You must provide which columns to insert into.");
-            if (columns.Length == values.Length) throw new Exception("Columns length is not equal to values length.");
+            if (columns.Length == 0) throw new Exception("You must provide which columns to insert into.");
+            if (columns.Length != values.Length) throw new Exception("Columns length is not equal to values length.");
             if (String.IsNullOrEmpty(where)) throw new Exception("You must specify a where claus.");
 
             string[] updates = new string[columns.Length];
