@@ -4,6 +4,9 @@ using System.Collections.Generic;
 
 namespace Blurr.SQL
 {
+    /// <summary>
+    /// Helper methods for commands that are often used, more complex commands will still have to be done manually
+    /// </summary>
     public class Helper
     {
         /// <summary>
@@ -90,6 +93,15 @@ namespace Blurr.SQL
             }
         }
 
+        /// <summary>
+        /// Select data from the specified table.
+        /// </summary>
+        /// <typeparam name="T">The class type of object you wish the data to be returned</typeparam>
+        /// <param name="dbInstance">An instance of DBConnection used to connect to the database.</param>
+        /// <param name="tableName">The name of the table to insert data into.</param>
+        /// <param name="columns">The columns that are being updated.</param>
+        /// <param name="where">The where claus (e.g "id = '1'")</param>
+        /// <returns>Returns a list of rows as objects of type T</returns>
         public static List<T> SelectData<T>(DBConnection dbInstance, string tableName, string[] columns, string where = null)
         {
             if (dbInstance == null) throw new Exception("Database connection instance is null.");
@@ -112,6 +124,7 @@ namespace Blurr.SQL
                     if (reader.HasRows)
                     {
                         // TODO: need a way to turn a row into an object of T
+                        //      use FOR JSON to return rows as json and then deserialize object?
                     }
 
                     reader.Close();
