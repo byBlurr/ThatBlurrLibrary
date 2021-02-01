@@ -1,7 +1,7 @@
 ﻿using MySql.Data.MySqlClient;
 using System;
 
-namespace Discord.Net.Bot.Database.Sql
+namespace Blurr.SQL
 {
     public class DBConnection
     {
@@ -10,9 +10,15 @@ namespace Discord.Net.Bot.Database.Sql
 
         }
 
+        private string databaseUser = string.Empty;
         private string databaseIp = string.Empty;
         private string databaseName = string.Empty;
         private string databasePassword = string.Empty;
+        public string DatabaseUser
+        {
+            get { return databaseUser; }
+            set { databaseUser = value; }
+        }
         public string DatabaseIp
         {
             get { return databaseIp; }
@@ -46,11 +52,13 @@ namespace Discord.Net.Bot.Database.Sql
         {
             if (Connection == null)
             {
-                if (String.IsNullOrEmpty(databaseIp)) databaseIp = "127.0.0.1";
-                if (String.IsNullOrEmpty(databaseName)) return false;
-                if (String.IsNullOrEmpty(databasePassword)) return false;
+                if (String.IsNullOrEmpty(databaseName)) throw new Exception("Database error: No database name provided. instance.DatabaseName() to set the database name.");
 
-                string connstring = $"Server={databaseIp}; database={databaseName}; UID=root; password={databasePassword}";
+                if (String.IsNullOrEmpty(databaseUser)) databaseUser = "root";
+                if (String.IsNullOrEmpty(databaseIp)) databaseIp = "127.0.0.1";
+                if (String.IsNullOrEmpty(databasePassword)) databasePassword = "";
+
+                string connstring = $"Server={databaseIp}; database={databaseName}; UID={databaseUser}; password={databasePassword}";
                 try
                 {
                     connection = new MySqlConnection(connstring);
@@ -59,14 +67,12 @@ namespace Discord.Net.Bot.Database.Sql
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine("Database error: " + ex.Message);
-                    return false;
+                    throw ex;
                 }
             }
             else
             {
-                Console.WriteLine("Database error: Already connected.");
-                return false;
+                throw new Exception("Database error: Already connected.");
             }
 
         }
