@@ -82,7 +82,9 @@ namespace Blurr.Sql
 
         }
 
+        /// <summary>
         /// Close the database connection
+        /// </summary>
         public void Close()
         {
             if (connection != null)
