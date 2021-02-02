@@ -12,6 +12,12 @@ namespace UnitTest
     [TestClass]
     public class DatabaseTests
     {
+        /// Need to setup a database for testing...
+        private const string DATABASE_IP = "";
+        private const string DATABASE_NAME = "";
+        private const string DATABASE_USER = "";
+        private const string DATABASE_PASSWORD = "";
+
         /// <summary>
         ///  Test connecting to database using DBConnection
         /// </summary>
@@ -19,7 +25,10 @@ namespace UnitTest
         public void DatabaseConnectionTest()
         {
             SqlConnection dbCon = SqlConnection.Instance();
-            dbCon.DatabaseName = "blurr";
+            dbCon.DatabaseIp = DATABASE_IP;
+            dbCon.DatabaseName = DATABASE_NAME;
+            dbCon.DatabaseUser = DATABASE_USER;
+            dbCon.DatabasePassword = DATABASE_PASSWORD;
             Assert.IsTrue(dbCon.Connect());
         }
 
@@ -30,7 +39,10 @@ namespace UnitTest
         public void SelectTest()
         {
             SqlConnection dbCon = SqlConnection.Instance();
-            dbCon.DatabaseName = "blurr";
+            dbCon.DatabaseIp = DATABASE_IP;
+            dbCon.DatabaseName = DATABASE_NAME;
+            dbCon.DatabaseUser = DATABASE_USER;
+            dbCon.DatabasePassword = DATABASE_PASSWORD;
             Assert.IsTrue(dbCon.Connect());
             var cmd = new MySqlCommand($"SELECT * FROM test", dbCon.Connection);
 
@@ -61,7 +73,10 @@ namespace UnitTest
             object[] values = { 0, "Steve" };
 
             SqlConnection dbCon = SqlConnection.Instance();
-            dbCon.DatabaseName = "blurr";
+            dbCon.DatabaseIp = DATABASE_IP;
+            dbCon.DatabaseName = DATABASE_NAME;
+            dbCon.DatabaseUser = DATABASE_USER;
+            dbCon.DatabasePassword = DATABASE_PASSWORD;
             try
             {
                 Assert.IsTrue(SqlHelper.InsertIntoTable(dbCon, "insert_test", columns, values));
@@ -83,7 +98,10 @@ namespace UnitTest
             string where = "id = '2'";
 
             SqlConnection dbCon = SqlConnection.Instance();
-            dbCon.DatabaseName = "blurr";
+            dbCon.DatabaseIp = DATABASE_IP;
+            dbCon.DatabaseName = DATABASE_NAME;
+            dbCon.DatabaseUser = DATABASE_USER;
+            dbCon.DatabasePassword = DATABASE_PASSWORD;
             try
             {
                 Assert.IsTrue(SqlHelper.UpdateTable(dbCon, "update_test", columns, values, where));
@@ -103,7 +121,10 @@ namespace UnitTest
             string[] columns = { "first_name", "last_name" };
 
             SqlConnection dbCon = SqlConnection.Instance();
-            dbCon.DatabaseName = "blurr";
+            dbCon.DatabaseIp = DATABASE_IP;
+            dbCon.DatabaseName = DATABASE_NAME;
+            dbCon.DatabaseUser = DATABASE_USER;
+            dbCon.DatabasePassword = DATABASE_PASSWORD;
             try
             {
                 List<Person> data = SqlHelper.SelectDataFromTable<Person>(dbCon, "update_test", columns);
