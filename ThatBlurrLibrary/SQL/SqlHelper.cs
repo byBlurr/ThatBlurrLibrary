@@ -11,6 +11,8 @@ namespace Blurr.Sql
     /// </summary>
     public class SqlHelper
     {
+        private SqlHelper() {}
+
         /// <summary>
         /// Insert data into a specified table.
         /// </summary>
