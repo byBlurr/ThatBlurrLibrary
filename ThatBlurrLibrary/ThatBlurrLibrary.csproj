@@ -7,6 +7,7 @@
   <ItemGroup>
     <Folder Include="Encryption\" />
     <Folder Include="HttpRequests\" />
+    <Folder Include="JSON\" />
   </ItemGroup>
 
   <ItemGroup>
