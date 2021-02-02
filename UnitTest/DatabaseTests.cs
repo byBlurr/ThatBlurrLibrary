@@ -14,7 +14,7 @@ namespace UnitTest
     {
         /// Need to setup a database for testing...
         private const string DATABASE_IP = "";
-        private const string DATABASE_NAME = "";
+        private const string DATABASE_NAME = "blurr";
         private const string DATABASE_USER = "";
         private const string DATABASE_PASSWORD = "";
 
