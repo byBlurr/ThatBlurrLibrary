@@ -33,37 +33,6 @@ namespace UnitTest
         }
 
         /// <summary>
-        ///  Test that the database connection works and we are able to select from a table
-        /// </summary>
-        [TestMethod]
-        public void SelectTest()
-        {
-            SqlConnection dbCon = SqlConnection.Instance();
-            dbCon.DatabaseIp = DATABASE_IP;
-            dbCon.DatabaseName = DATABASE_NAME;
-            dbCon.DatabaseUser = DATABASE_USER;
-            dbCon.DatabasePassword = DATABASE_PASSWORD;
-            Assert.IsTrue(dbCon.Connect());
-            var cmd = new MySqlCommand($"SELECT * FROM test", dbCon.Connection);
-
-            var reader = cmd.ExecuteReader();
-            int rows = 0;
-            if (reader.HasRows)
-            {
-                while (reader.Read())
-                {
-                    rows++;
-                }
-            }
-
-            reader.Close();
-            cmd.Dispose();
-            dbCon.Close();
-
-            Assert.AreEqual(3, rows);
-        }
-
-        /// <summary>
         /// Test INSERT INTO helper method
         /// </summary>
         [TestMethod]
@@ -130,7 +99,6 @@ namespace UnitTest
                 List<Person> data = SqlHelper.SelectDataFromTable<Person>(dbCon, "update_test", columns);
                 Assert.IsNotNull(data[0]);
                 Assert.IsNotNull(data[0].first_name);
-                Console.WriteLine(data[0].first_name);
                 Assert.AreEqual(2, data.Count);
             }
             catch (Exception ex)
