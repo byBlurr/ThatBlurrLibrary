@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System.IO;
 
 namespace Blurr.Json
 {
@@ -26,5 +27,20 @@ namespace Blurr.Json
         /// <param name="json">JSON string to convert</param>
         /// <returns>Object of type T from JSON string</returns>
         public static T FromJson<T>(string json) => JsonConvert.DeserializeObject<T>(json);
+
+        /// <summary>
+        /// Save object to a json file
+        /// </summary>
+        /// <param name="path">Where to save the file to</param>
+        /// <param name="obj">Object to save</param>
+        public static void SaveToFile(string path, object obj) => File.WriteAllText(path, ToJson(obj));
+
+        /// <summary>
+        /// Load an object from a json file
+        /// </summary>
+        /// <typeparam name="T">Type of object to return</typeparam>
+        /// <param name="path">The path that the json file is located at</param>
+        /// <returns>Returns an object of type T from the json file</returns>
+        public static T LoadFromFile<T>(string path) => FromJson<T>(File.ReadAllText(path));
     }
 }
