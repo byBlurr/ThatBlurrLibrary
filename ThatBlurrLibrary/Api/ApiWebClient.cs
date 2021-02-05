@@ -6,30 +6,19 @@ using System.Threading.Tasks;
 
 namespace Blurr.Api
 {
-    public class ApiCall
+    /// <summary>
+    /// API Client using WebClient
+    /// </summary>
+    public class ApiWebClient : ApiClient
     {
-
-        /// <summary>
-        /// The URL for the API calls
-        /// </summary>
-        private string Url = String.Empty;
-
-        /// <summary>
-        /// A collection of data used to authenticate calls...
-        /// </summary>
-        private readonly NameValueCollection AccessCollection;
 
         /// <summary>
         /// Initiate the ApiCall instance
         /// </summary>
         /// <param name="apiUrl">The url used to make API calls</param>
         /// <param name="accessCollection">The data required to access the api, for example username, password and accesskey. (Optional)</param>
-        public ApiCall(string apiUrl, NameValueCollection accessCollection = null)
+        public ApiWebClient(string apiUrl, NameValueCollection accessCollection = null) : base(apiUrl, accessCollection)
         {
-            if (String.IsNullOrEmpty(apiUrl)) throw new Exception("No API url was provided for API Calls.");
-
-            Url = apiUrl;
-            AccessCollection = accessCollection;
         }
 
         /// <summary>

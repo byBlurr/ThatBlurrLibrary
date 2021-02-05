@@ -25,8 +25,13 @@ namespace Blurr.Json
         /// </summary>
         /// <typeparam name="T">Type of object to convert JSON to</typeparam>
         /// <param name="json">JSON string to convert</param>
+        /// <param name="settings">The JSON convert settings</param>
         /// <returns>Object of type T from JSON string</returns>
-        public static T FromJson<T>(string json) => JsonConvert.DeserializeObject<T>(json);
+        public static T FromJson<T>(string json, JsonSerializerSettings settings = null)
+        {
+            if (settings != null) return JsonConvert.DeserializeObject<T>(json, settings);
+            else return JsonConvert.DeserializeObject<T>(json);
+        }
 
         /// <summary>
         /// Save object to a json file
